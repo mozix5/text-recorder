@@ -50,14 +50,12 @@
       isRecording = false;
       replayButton.disabled = false;
       stopButton.disabled = true;
-      console.log(changes);
     });
 
     replayButton.addEventListener("click", () => {
       startTime = changes[0].time;
       changes.map((change) => {
         const delay = change.time - startTime;
-        console.log(delay);
         setTimeout(() => {
           textarea.value = change.content;
           textarea.setSelectionRange(
