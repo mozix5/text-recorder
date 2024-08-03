@@ -2,12 +2,14 @@
   margin: 0;
   box-sizing: border-box;
 }
+
 body {
-  padding: 2rem 4rem;
+  padding: 1rem;
   background: #121c22;
   color: #9fb9d0;
   font-family: "Inter", sans-serif;
 }
+
 textarea {
   border-radius: 1.5rem;
   padding: 1.5rem;
@@ -16,11 +18,16 @@ textarea {
   font-size: 1.2rem;
   outline: none;
   border: none;
-  width: 500px;
+  width: 100%;
+  max-width: 500px;
 }
+
 .button-group {
   margin-top: 20px;
+  display: flex;
+  flex-direction: column;
 }
+
 button {
   background: #f35a4b;
   color: white;
@@ -28,24 +35,57 @@ button {
   border-radius: 0.5rem;
   font-size: 1rem;
   transition: opacity 0.3s ease;
+  width: 100%;
+  margin: 0.5rem 0;
 }
+
 button:disabled {
   opacity: 0.5;
   cursor: not-allowed;
 }
+
 .body-container {
   display: flex;
+  flex-direction: column;
   margin-top: 3rem;
 }
+
 .message-container {
-  font-size: 2rem;
-  padding: 4rem;
+  font-size: 1.5rem;
+  padding: 2rem;
   color: #9fb9d0cc;
   font-weight: 600;
 }
+
 .center {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+@media (min-width: 601px) {
+  body {
+    padding: 2rem 4rem;
+  }
+
+  textarea {
+   max-width: 50vw;
+width: 50vw;
+  }
+
+  .button-group {
+    flex-direction: row;
+    justify-content: center;
+    gap: 20px;
+  }
+
+  .body-container{
+    flex-direction: row;
+  }
+
+  .message-container {
+    font-size: 2rem;
+    padding: 4rem;
+  }
 }
