@@ -27,8 +27,10 @@
     const handleRecord = () => {
       if (isRecording) {
         const content = textarea.value;
+        const cursorStartPos = textarea.selectionStart;
+        const cursorEndPos = textarea.selectionEnd;
         const time = Date.now();
-        changes = [...changes, { content, time }];
+        changes = [...changes, { content, cursorStartPos, cursorEndPos, time }];
       }
     };
 
@@ -56,6 +58,11 @@
         console.log(delay);
         setTimeout(() => {
           textarea.value = change.content;
+          textarea.setSelectionRange(
+            change.cursorStartPos,
+            change.cursorEndPos
+          );
+          textarea.focus();
         }, delay);
       });
     });
