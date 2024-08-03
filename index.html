@@ -36,6 +36,8 @@
 
     textarea.addEventListener("input", handleRecord);
 
+    textarea.addEventListener("select", handleRecord);
+
     startButton.addEventListener("click", () => {
       changes = [];
       textarea.value = "";
