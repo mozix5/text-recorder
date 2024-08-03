@@ -9,13 +9,55 @@
     <div>
       <textarea rows="20" style="width: 400px"></textarea>
       <div>
-        <button>Start</button>
-        <button disabled>Stop</button>
-        <button disabled>Replay</button>
+        <button id="start">Start</button>
+        <button id="stop" disabled>Stop</button>
+        <button id="replay" disabled>Replay</button>
       </div>
     </div>
   </body>
   <script>
     const textarea = document.querySelector("textarea");
+    const startButton = document.getElementById("start");
+    const stopButton = document.getElementById("stop");
+    const replayButton = document.getElementById("replay");
+
+    let isRecording = false;
+    let changes = [];
+
+    const handleRecord = () => {
+      if (isRecording) {
+        const content = textarea.value;
+        const time = Date.now();
+        changes = [...changes, { content, time }];
+      }
+    };
+
+    textarea.addEventListener("input", handleRecord);
+
+    startButton.addEventListener("click", () => {
+      changes = [];
+      textarea.value = "";
+      isRecording = true;
+      stopButton.disabled = false;
+      replayButton.disabled = true;
+    });
+
+    stopButton.addEventListener("click", () => {
+      isRecording = false;
+      replayButton.disabled = false;
+      stopButton.disabled = true;
+      console.log(changes);
+    });
+
+    replayButton.addEventListener("click", () => {
+      startTime = changes[0].time;
+      changes.map((change) => {
+        const delay = change.time - startTime;
+        console.log(delay);
+        setTimeout(() => {
+          textarea.value = change.content;
+        }, delay);
+      });
+    });
   </script>
 </html>
