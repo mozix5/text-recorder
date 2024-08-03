@@ -4,14 +4,27 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Codemonk Opportunity</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <div>
-      <textarea rows="20" style="width: 400px"></textarea>
-      <div>
-        <button id="start">Start</button>
-        <button id="stop" disabled>Stop</button>
-        <button id="replay" disabled>Replay</button>
+    <h1>Text Recorder</h1>
+    <div class="body-container">
+      <div class="center">
+        <textarea rows="20" placeholder="Start typing here..."></textarea>
+        <div class="button-group">
+          <button id="start">Start</button>
+          <button id="stop" disabled>Stop</button>
+          <button id="replay" disabled>Replay</button>
+        </div>
+      </div>
+      <div id="message" class="message-container">
+        Welcome! Click 'Start' to begin recording your text changes.
       </div>
     </div>
   </body>
@@ -20,6 +33,7 @@
     const startButton = document.getElementById("start");
     const stopButton = document.getElementById("stop");
     const replayButton = document.getElementById("replay");
+    const messageDiv = document.getElementById("message");
 
     let isRecording = false;
     let changes = [];
@@ -44,17 +58,22 @@
       isRecording = true;
       stopButton.disabled = false;
       replayButton.disabled = true;
+      messageDiv.textContent =
+        "Recording started. Your changes are being captured.";
     });
 
     stopButton.addEventListener("click", () => {
       isRecording = false;
       replayButton.disabled = false;
       stopButton.disabled = true;
+      messageDiv.textContent =
+        "Recording stopped. Ready to replay your actions.";
     });
 
     replayButton.addEventListener("click", () => {
       startTime = changes[0].time;
-      changes.map((change) => {
+      messageDiv.textContent = "Replaying your actions... Please wait.";
+      changes.map((change, index) => {
         const delay = change.time - startTime;
         setTimeout(() => {
           textarea.value = change.content;
